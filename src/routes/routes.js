@@ -15,14 +15,6 @@ function hideForYou(list, username) {
     return list;
 }
 
-function capitalizeFirstLetter(list) {
-    for (let ii = 0; ii < list.length; ii++) {
-        // Algorithm from https://flexiple.com/javascript/javascript-capitalize-first-letter/
-        let str1 = list[ii].username;
-        const str2 = str.charAt(0).toUpperCase() + str.slice(1);
-    }
-}
-
 const routes = {};
 
 // function only used on initial server load to generate members if they don't exist
@@ -94,8 +86,6 @@ routes.removeGift = async function (req, res) {
 
 routes.updateGift = async function (req, res) {
     try {
-        console.log(req.body.username);
-        console.log(req.body.giftNumber);
         let familyMember = await Member.findOne({ username: req.body.username });
         familyMember.gifts[req.body.giftNumber].bought = !familyMember.gifts[req.body.giftNumber].bought;
         await familyMember.save();
