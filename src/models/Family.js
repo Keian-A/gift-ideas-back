@@ -5,7 +5,8 @@ const { Schema, model } = require('mongoose');
 const GiftSchema = new Schema({
     giftName: { type: String, required: true },
     link: { type: String, required: false },
-    bought: { type: Boolean, required: true }
+    bought: { type: Boolean, required: true },
+    buyer: { type: String, required: true }
 });
 
 const FamilySchema = new Schema({

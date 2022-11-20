@@ -32,6 +32,7 @@ async function createMember(list) {
     }
 }
 
+// function to login
 routes.validateMember = async function (req, res) {
     try {
         let memberResult = await Member.findOne({ username: req.body.username });
@@ -50,6 +51,7 @@ routes.validateMember = async function (req, res) {
     }
 }
 
+// function to add a gift to your own list
 routes.addGift = async function (req, res) {
     try {
         if (req.body.username) {
@@ -57,7 +59,8 @@ routes.addGift = async function (req, res) {
             let temp = {
                 giftName: req.body.giftName,
                 link: req.body.link,
-                bought: false
+                bought: false,
+                buyer: "undefined"
             }
             familyMember.gifts.push(temp);
             await familyMember.save();
@@ -72,11 +75,11 @@ routes.addGift = async function (req, res) {
     }
 }
 
+// function to remove an item from your own list
 routes.removeGift = async function (req, res) {
     try {
         let familyMember = await Member.findOne({ username: req.body.username });
         familyMember.gifts.splice(req.body.giftNumber, 1);
-        // familyMember.gifts = familyMember.gifts.filter(gift => gift.giftName !== req.body.giftName);
         await familyMember.save();
         res.status(204).send('Resource deleted successfully.');
     } catch {
@@ -84,10 +87,12 @@ routes.removeGift = async function (req, res) {
     }
 }
 
+// function to update the "bought" boolean on an individual gift object
 routes.updateGift = async function (req, res) {
     try {
         let familyMember = await Member.findOne({ username: req.body.username });
         familyMember.gifts[req.body.giftNumber].bought = !familyMember.gifts[req.body.giftNumber].bought;
+        familyMember.gifts[req.body.giftNumber].buyer = req.body.currentMember;
         await familyMember.save();
         let familyList = await Member.find({});
         familyList = hideForYou(familyList, req.body.currentMember);
