@@ -5,7 +5,7 @@ let familyMembers = [
     { username: 'krista', password: 'pass' },
     { username: 'shane', password: 'pass' },
     { username: 'ammy', password: 'pass' },
-    { username: 'brian', password: 'pass' },
+    { username: 'devon', password: 'pass' },
     { username: 'lily', password: 'pass' },
     { username: 'niko', password: 'pass' },
     { username: 'seth', password: 'pass' },
