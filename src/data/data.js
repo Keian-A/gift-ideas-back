@@ -1,5 +1,6 @@
 let familyMembers = [
     { username: 'keian', password: 'pass' },
+    { username: 'tina', password: 'pass' },
     { username: 'kiri', password: 'pass' },
     { username: 'corena', password: 'pass' },
     { username: 'krista', password: 'pass' },
