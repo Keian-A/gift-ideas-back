@@ -5,6 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+const { ServerApiVersion } = require('mongodb');
 app.use(cors({
     origin: '*'
 }));
@@ -19,10 +20,16 @@ const { routes } = require('./src/routes/routes.js');
 const familyMembers = require('./src/data/data.js');
 const { createMember } = require('./src/routes/routes.js');
 
+// To remove deprecation warning
+mongoose.set('strictQuery', false);
+
 // Database connection
 mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    }
 });
 
 // Database connection confirmation
