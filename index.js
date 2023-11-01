@@ -43,6 +43,7 @@ app.post('/validate', routes.validateMember);
 app.post('/addGift', routes.addGift);
 app.post('/deleteGift', routes.removeGift);
 app.post('/updateGift', routes.updateGift);
+app.post('/deleteMyBoughtGifts', routes.deleteMyBoughtGifts);
 
 app.listen(PORT, () => {
     console.log(`SERVER UP AND RUNNING ON PORT ${PORT}`);
