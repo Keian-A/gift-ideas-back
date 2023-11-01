@@ -71,7 +71,7 @@ routes.addGift = async function (req, res) {
             res.status(404).send('User not found. This error is strange and this should never happen due to all potential users being generated on server load. Please contact your server admin, Keian :)');
         }
     } catch {
-        res.status(500).send('Server error.');
+        res.status(500).send('Server Error.');
     }
 }
 
@@ -83,7 +83,7 @@ routes.removeGift = async function (req, res) {
         await familyMember.save();
         res.status(204).send('Resource deleted successfully.');
     } catch {
-        res.status(500).send('Server error.');
+        res.status(500).send('Server Error.');
     }
 }
 
@@ -98,7 +98,24 @@ routes.updateGift = async function (req, res) {
         familyList = hideForYou(familyList, req.body.currentMember);
         res.status(200).send(familyList);
     } catch (e) {
-        res.status(500).send('Server error.');
+        res.status(500).send('Server Error.');
+    }
+}
+
+routes.deleteMyBoughtGifts = async function (req, res) {
+    try {
+        let familyMember = await Member.findOne({username: req.body.username});
+        for (let ii = familyMember.gifts.length -1; ii >= 0; ii--) {
+            if (familyMember.gifts[ii].bought) {
+                familyMember.gifts.splice(ii, 1);
+            }
+        }
+        await familyMember.save();
+        let familyList = await Member.find({});
+        familyList = hideForYou(familyList, req.body.currentMember);
+        res.status(200).send(familyList);
+    } catch (e) {
+        res.status(500).send('Server Error.');
     }
 }
 
